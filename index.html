@@ -1,69 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zebra – Support & Privacy Policy</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 40px;
-            max-width: 700px;
-            margin: auto;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1, h2 {
-            font-size: 28px;
-            color: #2c3e50;
-        }
-        h2 {
-            font-size: 22px;
-            margin-top: 30px;
-        }
-        p {
-            font-size: 18px;
-            margin-bottom: 16px;
-        }
-        a {
-            color: #007AFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zebra Music — Learn to read music by playing</title>
+<meta name="description" content="Zebra Music is a playful iOS music-theory trainer: 19 mini-games covering note reading, rhythm, intervals, scales, chords and ear training, wrapped in levels, stars, daily challenges and quests. Free on the App Store." />
+<meta name="theme-color" content="#FF5E00" />
+<link rel="icon" type="image/png" href="assets/app-icon.png" />
+<link rel="apple-touch-icon" href="assets/app-icon.png" />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Zebra Music — Learn to read music by playing" />
+<meta property="og:description" content="A playful iOS music-theory trainer: 19 mini-games, levels, daily challenges and quests. Free on the App Store." />
+<meta property="og:image" content="assets/logo.png" />
+<meta property="og:url" content="https://zebra-musicapp.com" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<style>
+  :root {
+    --orange: #FF5E00;
+    --amber:  #FFA600;
+    --bg:     #14100d;
+    --bg-2:   #1c1713;
+    --card:   #221c17;
+    --card-2: #2a221c;
+    --line:   rgba(255, 166, 0, 0.14);
+    --text:   #f4ede6;
+    --muted:  #b6a99b;
+    --grad:   linear-gradient(135deg, var(--amber), var(--orange));
+    --radius: 20px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: var(--amber); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1, h2, h3 { line-height: 1.2; margin: 0; }
+  section { padding: 80px 24px; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  /* ---------- ambient background glow ---------- */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -25%; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(255,94,0,0.18), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  section, header, footer { position: relative; z-index: 1; }
+
+  /* ---------- nav ---------- */
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(14px);
+    background: rgba(20,16,13,0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 24px;
+  }
+  .nav-inner img { width: 36px; height: 36px; border-radius: 9px; }
+  .nav-brand { font-weight: 700; font-size: 18px; letter-spacing: -0.2px; }
+  .nav-links { margin-left: auto; display: flex; gap: 26px; align-items: center; }
+  .nav-links a { color: var(--muted); font-size: 15px; font-weight: 500; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .nav-cta {
+    background: var(--grad); color: #1a1208 !important;
+    padding: 9px 18px; border-radius: 999px; font-weight: 700; font-size: 14px;
+  }
+  .nav-cta:hover { text-decoration: none; filter: brightness(1.05); }
+  @media (max-width: 720px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { padding-top: 70px; padding-bottom: 60px; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px; align-items: center;
+  }
+  .hero img.logo {
+    width: 96px; height: 96px; border-radius: 22px;
+    box-shadow: 0 16px 50px rgba(255,94,0,0.35);
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 52px; font-weight: 800; letter-spacing: -1.2px;
+    margin-bottom: 16px;
+  }
+  .hero h1 .accent {
+    background: var(--grad); -webkit-background-clip: text;
+    background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p.lead { font-size: 20px; color: var(--muted); max-width: 520px; margin-bottom: 32px; }
+  .hero-mascot { text-align: center; }
+  .hero-mascot img {
+    width: 88%; max-width: 360px;
+    filter: drop-shadow(0 24px 50px rgba(0,0,0,0.55));
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+  /* App Store badge */
+  .appstore {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #000; color: #fff !important;
+    padding: 13px 22px 13px 18px; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .appstore:hover { text-decoration: none; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+  .appstore svg { width: 28px; height: 28px; fill: #fff; }
+  .appstore .small { font-size: 11px; line-height: 1; opacity: .85; display: block; margin-bottom: 3px; }
+  .appstore .big { font-size: 21px; font-weight: 600; line-height: 1; letter-spacing: -0.3px; }
+  .pill-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .price-pill {
+    font-size: 14px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 8px; }
+    .hero-mascot { order: -1; }
+    .hero-mascot img { max-width: 240px; }
+    .hero h1 { font-size: 40px; }
+    .hero p.lead { font-size: 18px; }
+  }
+
+  /* ---------- stat strip ---------- */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-top: 56px;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px; text-align: center;
+  }
+  .stat .num {
+    font-size: 32px; font-weight: 800;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  @media (max-width: 620px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---------- section heading ---------- */
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: 2px; font-size: 13px;
+    font-weight: 700; color: var(--orange); margin-bottom: 12px;
+  }
+  .sec-title { font-size: 34px; font-weight: 800; letter-spacing: -0.6px; margin-bottom: 14px; }
+  .sec-sub { color: var(--muted); font-size: 18px; max-width: 640px; margin-bottom: 44px; }
+
+  /* ---------- feature cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 860px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .feature {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 26px;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .feature:hover { transform: translateY(-4px); border-color: rgba(255,166,0,0.4); background: var(--card-2); }
+  .feature .ic {
+    width: 48px; height: 48px; border-radius: 13px;
+    display: grid; place-items: center; font-size: 24px;
+    background: rgba(255,94,0,0.12); margin-bottom: 16px;
+  }
+  .feature h3 { font-size: 19px; margin-bottom: 8px; }
+  .feature p { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+  .feature .games { display: flex; flex-wrap: wrap; gap: 7px; }
+  .feature .games span {
+    font-size: 12.5px; color: var(--text);
+    background: rgba(255,255,255,0.05); border: 1px solid var(--line);
+    padding: 4px 10px; border-radius: 999px;
+  }
+
+  /* ---------- progression band ---------- */
+  .band {
+    background: var(--bg-2);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .prog { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 760px) { .prog { grid-template-columns: repeat(2, 1fr); } }
+  .prog .item .big {
+    font-size: 26px; margin-bottom: 10px; display: inline-block;
+  }
+  .prog .item h3 { font-size: 17px; margin-bottom: 6px; }
+  .prog .item p { color: var(--muted); font-size: 14.5px; margin: 0; }
+
+  /* ---------- languages ---------- */
+  .langs { display: flex; gap: 14px; flex-wrap: wrap; }
+  .lang {
+    display: flex; align-items: center; gap: 9px;
+    background: var(--card); border: 1px solid var(--line);
+    padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 15px;
+  }
+  .lang .flag { font-size: 20px; }
+
+  /* ---------- privacy + support ---------- */
+  .panel {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 34px;
+  }
+  .panel + .panel { margin-top: 20px; }
+  .panel h3 { font-size: 22px; margin-bottom: 14px; }
+  .panel p { color: var(--muted); margin: 0 0 12px; }
+  .panel p:last-child { margin-bottom: 0; }
+  .contact-btn {
+    display: inline-block; margin-top: 6px;
+    background: var(--grad); color: #1a1208; font-weight: 700;
+    padding: 12px 24px; border-radius: 999px;
+  }
+  .contact-btn:hover { text-decoration: none; filter: brightness(1.05); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
+  .two-col .panel + .panel { margin-top: 0; }
+
+  /* ---------- final CTA ---------- */
+  .final {
+    text-align: center;
+    background: var(--grad);
+    border-radius: 28px; padding: 60px 30px; color: #1a1208;
+    margin: 0 auto; max-width: 1080px;
+  }
+  .final h2 { font-size: 34px; font-weight: 800; margin-bottom: 12px; }
+  .final p { font-size: 18px; opacity: 0.85; margin: 0 auto 28px; max-width: 480px; }
+  .final .appstore { background: #1a1208; border-color: rgba(0,0,0,0.2); }
+  .final .appstore svg { fill: #fff; }
+
+  /* ---------- footer ---------- */
+  footer.site {
+    border-top: 1px solid var(--line);
+    padding: 40px 24px; color: var(--muted); font-size: 14px;
+  }
+  .foot-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .foot-inner img { width: 30px; height: 30px; border-radius: 8px; }
+  .foot-inner .spacer { margin-left: auto; }
+  .foot-inner a { color: var(--muted); }
+</style>
 </head>
 <body>
-    <h1>Zebra – Support</h1>
-    <p>
-        If you need help, found a bug, or want to share feedback about Zebra,<br>
-        you can contact me directly at (I usually reply within 24–48 hours):
-    </p>
-    <p>
-        <strong>Email:</strong> <a href="mailto:zebra.music@outlook.fr">zebra.music@outlook.fr</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <img src="assets/app-icon.png" alt="Zebra Music app icon" />
+    <span class="nav-brand">Zebra Music</span>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#progression">Progression</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#support">Support</a>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6756319231">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <img class="logo" src="assets/logo.png" alt="Zebra Music logo" />
+      <h1>Learn to read music<br>by <span class="accent">playing</span>.</h1>
+      <p class="lead">
+        Zebra Music turns music theory into a game. Master note reading, rhythm,
+        intervals, scales, chords and ear training through 19 bite-sized mini-games —
+        built to keep you coming back.
+      </p>
+      <div class="pill-row">
+        <a class="appstore" href="https://apps.apple.com/app/id6756319231">
+          <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span><span class="small">Download on the</span><span class="big">App Store</span></span>
+        </a>
+        <span class="price-pill">Free · iPhone & iPad</span>
+      </div>
+    </div>
+    <div class="hero-mascot">
+      <img src="assets/zebra-teacher.png" alt="Zebra, your friendly music teacher" />
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="num">19</div><div class="lbl">Mini-games</div></div>
+      <div class="stat"><div class="num">6</div><div class="lbl">Skill categories</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">Languages</div></div>
+      <div class="stat"><div class="num">10</div><div class="lbl">Levels per game</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow">What's inside</div>
+    <h2 class="sec-title">Six skills, nineteen ways to practise</h2>
+    <p class="sec-sub">
+      Every exercise is a focused mini-game with its own difficulty curve. Start with
+      the basics and branch out as you unlock new challenges.
     </p>
 
-    <h2>Privacy Policy</h2>
-    <p>
-        <strong>Last updated:</strong> December 2025
-    </p>
-    <p>
-        The Zebra app does not collect, store, or share any personal information.
-        All data, including your progress and settings, is stored locally on your device.
-    </p>
-    <p>
-        If you have any questions about this Privacy Policy, please contact me at
-        <a href="mailto:zebra.music@outlook.fr">zebra.music@outlook.fr</a>.
+    <div class="cards">
+      <div class="feature">
+        <div class="ic">🎼</div>
+        <h3>Note Reading</h3>
+        <p>Read the staff and find your way around the keyboard — treble and bass clef, all the way to the full grand staff.</p>
+        <div class="games">
+          <span>Key to Name</span><span>Note → Name</span><span>Name → Key</span>
+          <span>Note → Key</span><span>Full Keyboard</span><span>Sight Reading</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="ic">🥁</div>
+        <h3>Rhythm</h3>
+        <p>Feel the pulse. Read note values, build bars to the beat, and tap back rhythms you hear.</p>
+        <div class="games">
+          <span>Rhythm</span><span>Rhythm Builder</span><span>Rhythm Dictation</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="ic">📏</div>
+        <h3>Intervals</h3>
+        <p>Measure the distance between notes — recognise intervals on sight and build them yourself.</p>
+        <div class="games">
+          <span>Interval Recognition</span><span>Interval Construction</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="ic">🎹</div>
+        <h3>Scales &amp; Keys</h3>
+        <p>Major, minor and everything between — recognise, complete and construct scales, and master key signatures.</p>
+        <div class="games">
+          <span>Scale Recognition</span><span>Scale Construction</span>
+          <span>Scale Fill</span><span>Key Signatures</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="ic">🎶</div>
+        <h3>Chords</h3>
+        <p>Stack notes into harmony — spell chords correctly, recognise them, and pick them out by ear.</p>
+        <div class="games">
+          <span>Chord Construction</span><span>Chord Recognition</span><span>Chord by Ear</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="ic">👂</div>
+        <h3>Ear Training</h3>
+        <p>Train the most important muscle of all. Hear a note, an interval or a chord — and name it.</p>
+        <div class="games">
+          <span>Note by Ear</span><span>Chord by Ear</span><span>Rhythm Dictation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRESSION ============ -->
+<section id="progression" class="band">
+  <div class="wrap">
+    <div class="eyebrow">Built to keep you going</div>
+    <h2 class="sec-title">Progress you can feel</h2>
+    <p class="sec-sub">
+      Zebra wraps practice in a learning journey — so every session moves you forward
+      and the next challenge is always one tap away.
     </p>
 
-    <footer>
-        <p>© 2025 Zebra Music. All rights reserved.</p>
-    </footer>
+    <div class="prog">
+      <div class="item">
+        <span class="big">🏆</span>
+        <h3>Levels &amp; Stars</h3>
+        <p>Ten levels per game. Earn stars for clean runs and climb a pedagogically-ordered skill tree.</p>
+      </div>
+      <div class="item">
+        <span class="big">🔥</span>
+        <h3>Daily Challenges</h3>
+        <p>A fresh hand-picked exercise every day to keep your streak — and your skills — alive.</p>
+      </div>
+      <div class="item">
+        <span class="big">🗺️</span>
+        <h3>Quests</h3>
+        <p>Guided goals that draw from everything you've unlocked and nudge you toward mastery.</p>
+      </div>
+      <div class="item">
+        <span class="big">📊</span>
+        <h3>Skills Radar</h3>
+        <p>See your strengths and gaps at a glance across all six categories, and know what to practise next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LANGUAGES ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Plays in your language</div>
+    <h2 class="sec-title">Fully localized</h2>
+    <p class="sec-sub">Zebra speaks five languages — including note-naming conventions that match how you learned music.</p>
+    <div class="langs">
+      <div class="lang"><span class="flag">🇫🇷</span> Français</div>
+      <div class="lang"><span class="flag">🇬🇧</span> English</div>
+      <div class="lang"><span class="flag">🇪🇸</span> Español</div>
+      <div class="lang"><span class="flag">🇮🇹</span> Italiano</div>
+      <div class="lang"><span class="flag">🇩🇪</span> Deutsch</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIVACY + SUPPORT ============ -->
+<section id="support">
+  <div class="wrap">
+    <div class="eyebrow">Help &amp; legal</div>
+    <h2 class="sec-title">Support &amp; Privacy</h2>
+    <p class="sec-sub">Got a question, found a bug, or want to share an idea? I'd love to hear from you.</p>
+
+    <div class="two-col">
+      <div class="panel" id="contact">
+        <h3>📮 Get in touch</h3>
+        <p>
+          If you need help, found a bug, or want to share feedback about Zebra Music,
+          you can contact me directly. I usually reply within 24–48 hours.
+        </p>
+        <a class="contact-btn" href="mailto:zebra.music@outlook.fr">Email support</a>
+      </div>
+
+      <div class="panel" id="privacy">
+        <h3>🔒 Privacy Policy</h3>
+        <p><strong style="color:var(--text)">Last updated: June 2026</strong></p>
+        <p>
+          Zebra Music does not collect, store, or share any personal information.
+          All data — including your progress and settings — is stored locally on your device.
+        </p>
+        <p>
+          Questions about this policy? Email
+          <a href="mailto:zebra.music@outlook.fr">zebra.music@outlook.fr</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section>
+  <div class="final">
+    <h2>Ready to play your way to music theory?</h2>
+    <p>Download Zebra Music free on the App Store and start your first mini-game today.</p>
+    <a class="appstore" href="https://apps.apple.com/app/id6756319231">
+      <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span><span class="small">Download on the</span><span class="big">App Store</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="foot-inner">
+    <img src="assets/app-icon.png" alt="Zebra Music" />
+    <span>© 2026 Zebra Music. All rights reserved.</span>
+    <span class="spacer"></span>
+    <a href="#privacy">Privacy</a>
+    <a href="mailto:zebra.music@outlook.fr">Contact</a>
+    <a href="https://apps.apple.com/app/id6756319231">App Store</a>
+  </div>
+</footer>
+
 </body>
 </html>
